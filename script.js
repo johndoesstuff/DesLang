@@ -2,7 +2,7 @@ window.onbeforeunload = e => "";
 function compile() {
 	var o = "";
 	try {
-		o = module.exports.parse(editor.getValue()).map(e => e[0])
+		o = module.exports.parse(editor.getValue())
 	} catch (e) {
 		alert(e.message)
 		return
@@ -11,12 +11,14 @@ function compile() {
 }
 
 function run() {
+	var state = Calc.getState();
 	var o = "";
 	try {
-		o = module.exports.parse(editor.getValue()).map(e => e[0])
+		o = module.exports.parse(editor.getValue())
 	} catch (e) {
 		alert(e.message)
 		return
 	}
-	Calc.setExpressions(o)
+	state.expressions.list = o;
+	Calc.setState(state);
 }
