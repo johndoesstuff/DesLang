@@ -196,56 +196,62 @@
 		"^" : "\\parallel\\left(\\pm,\\mp\\right)=\\sum_{\\nparallel=0}^{\\log_{2}\\left(\\max\\left(\\left|\\pm\\right|,\\left|\\mp\\right|,1\\right)\\right)}\\left\\{\\left\\{\\operatorname{mod}\\left(\\pm,2^{\\left(\\nparallel+1\\right)}\\right)\\ge2^{\\nparallel}:1,0\\right\\}+\\left\\{\\operatorname{mod}\\left(\\mp,2^{\\left(\\nparallel+1\\right)}\\right)\\ge2^{\\nparallel}:1,0\\right\\}=1:2^{\\nparallel},0\\right\\}",
 	}
 	DesLang.createBinary = (n1, n2, binary) => {
-	if (Object.keys(DesLang.binarySymbMap).includes(binary)) {
-		return n1 + DesLang.binarySymbMap[binary] + n2
-	} else {
-		if (binary == "**") return n1 + "^{" + n2 + "}";
-		else if (binary == "/") return "\\frac{" + n1 + "}{" + n2 + "}";
-		else if (binary == "!=") return bl + "\\left|" + pl + n1 + pr + "-" + pl + n2 + pr + "\\right|>0" + br;
-		else if (binary == "&&") return bl + pl + n1 + pr + pl + n2 + pr + ">0" + br;
-		else if (binary == "==") return bl + n1 + "=" + n2 + br;
-		else if (binary == ">") return bl + n1 + ">" + n2 + br;
-		else if (binary == "<") return bl + n1 + "<" + n2 + br;
-		else if (binary == ">=") return bl + n1 + "\\ge " + n2 + br;
-		else if (binary == "<=") return bl + n1 + "\\le " + n2 + br;
-		else if (binary == "|") {
-			DesLang.packageFunction("|");
-			return "\\ne" + pl + n1 + "," + n2 + pr;
-		} else if (binary == "&") {
-			DesLang.packageFunction("&");
-			return "\\perp" + pl + n1 + "," + n2 + pr;
+		if (Object.keys(DesLang.binarySymbMap).includes(binary)) {
+			return n1 + DesLang.binarySymbMap[binary] + n2
+		} else {
+			if (binary == "**") return n1 + "^{" + n2 + "}";
+			else if (binary == "/") return "\\frac{" + n1 + "}{" + n2 + "}";
+			else if (binary == "!=") return bl + "\\left|" + pl + n1 + pr + "-" + pl + n2 + pr + "\\right|>0" + br;
+			else if (binary == "&&") return bl + pl + n1 + pr + pl + n2 + pr + ">0" + br;
+			else if (binary == "==") return bl + n1 + "=" + n2 + br;
+			else if (binary == ">") return bl + n1 + ">" + n2 + br;
+			else if (binary == "<") return bl + n1 + "<" + n2 + br;
+			else if (binary == ">=") return bl + n1 + "\\ge " + n2 + br;
+			else if (binary == "<=") return bl + n1 + "\\le " + n2 + br;
+			else if (binary == "|") {
+				DesLang.packageFunction("|");
+				return "\\ne" + pl + n1 + "," + n2 + pr;
+			} else if (binary == "&") {
+				DesLang.packageFunction("&");
+				return "\\perp" + pl + n1 + "," + n2 + pr;
+			}
 		}
 	}
-}
-DesLang.createUnary = (n, op) => {
-if (op == "~") return pl + "-1-\\operatorname{floor}" + pl + n + pr + pr;
-else if (op == "!") return pl + "1-\\operatorname{abs}" + pl + "\\operatorname{sgn}" + pl + n + pr + pr + pr;
-else if (op == "@") return "..." + n;
-}
+	DesLang.createUnary = (n, op) => {
+		if (op == "~") return pl + "-1-\\operatorname{floor}" + pl + n + pr + pr;
+		else if (op == "!") return pl + "1-\\operatorname{abs}" + pl + "\\operatorname{sgn}" + pl + n + pr + pr + pr;
+		else if (op == "@") return "..." + n;
+	}
 }
 
 // Desmos
 Program "Program"
-	= lines: (_ Line _)+ { return lines.map(e => e.filter(k => k != "")) }
+	= lines: (_ Line _)+ {
+		return lines.map(e => {
+			return e[1];
+		}).reduce((start, term) => {
+			return start.concat(term);
+		})
+	}
 
 Line "Line"
 	= e:Statement _ ";" { return e }
 
 Statement "Statement"
 	= Folder
-	/ e:Expr0 { return {
-    	latex: e,
-        id: DesLang.genId(),
-    }}
+	/ e:Expr0 { return [{
+		latex: e,
+		id: DesLang.genId(),
+	}]}
 
 FolderLine "FolderLine"
 	= e:FolderStatement _ ";" { return e }
 
 FolderStatement "FolderStatement"
 	= e:Expr0 { return {
-    	latex: e,
-        id: DesLang.genId(),
-    }}
+		latex: e,
+		id: DesLang.genId(),
+	}}
 
 List "List"
 	= "[" e:(_ Expr0 _ ("," _ Expr0 _)*) "]" {
@@ -271,12 +277,12 @@ Func "Function"
 
 Folder "Folder"
 	= "folder" _ "(" _ name:Text _ ")" _ "{" _ contents:(FolderLine _)* "}" { 
-    var id = DesLang.genId();
-    contents.forEach(e => {e = e[0]; e.folderId = id})
-    return [{ 
+	var id = DesLang.genId();
+	contents.forEach(e => {e = e[0]; e.folderId = id})
+	return [{ 
 		title: name, 
 		id,
-        type: "folder"
+		type: "folder"
 	}, ...contents.map(e => e[0])]}
 
 Expr0
