@@ -1,0 +1,93 @@
+<body style="margin:0;overflow:hidden;">
+	<script>
+		module = {};
+	</script>
+	<script src="calculator.js"></script>
+	<script src="parser.js"></script>
+	<script src="ace.min.js"></script>
+	<div id="code" style="width: 45vw; height: 50vh;float:left"></div>
+	<div id="output" style="width: 45vw; height: 50vh;float:left"></div>
+	<div id="action" style="width: 10vw; height: 50vh;float:right;display: inline-block;">
+		<div id="compile" onclick="compile()">Compile</div>
+		<div id="run" onclick="run()">Run</div>
+	</div>
+	<div id="placeholder" style="width: 0vw; height: 50vh;display: block;"></div>
+	<div id="calculator" style="width: 100vw; height: 50vh;"></div>
+	<script>
+		var elt = document.getElementById('calculator');
+		var Calc = Desmos.GraphingCalculator(elt);
+		Calc.updateSettings({clickableObjects: true});
+		//Calc.setExpression({ id: 'graph1', latex: 'y=x^2' });
+		
+		// pass options to ace.edit
+		ace.config.set('basePath', 'ace');
+		editor = ace.edit(document.getElementById("code"), {
+			mode: "ace/mode/javascript",
+			selectionStyle: "text"
+		})
+		// use setOptions method to set several options at once
+		editor.setOptions({
+			autoScrollEditorIntoView: true,
+			copyWithEmptySelection: true,
+			printMargin: false,
+		});
+		// use setOptions method
+		editor.setOption("mergeUndoDeltas", "always");
+
+		// some options are also available as methods e.g. 
+		editor.setTheme("ace/theme/gruvbox")
+		
+		outp = ace.edit(document.getElementById("output"), {
+			mode: "ace/mode/text",
+			selectionStyle: "text"
+		})
+		// use setOptions method to set several options at once
+		outp.setOptions({
+			autoScrollEditorIntoView: true,
+			copyWithEmptySelection: true,
+			printMargin: false,
+		});
+		// use setOptions method
+		outp.setOption("mergeUndoDeltas", "always");
+
+		// some options are also available as methods e.g. 
+		outp.setTheme("ace/theme/gruvbox")
+
+		// to get the value of the option use
+		//editor.getOption("optionName");
+	</script>
+	<script src="script.js"></script>
+	<style>
+		#output {
+			background: #121314;
+		}
+		#compile {
+			width: 10vw;
+			height: 25vh;
+			background: #42484f;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: white;
+			font-family: Courier;
+			user-select: none;
+		}
+		#run {
+			width: 10vw;
+			height: 25vh;
+			background: #42484f;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: white;
+			font-family: Courier;
+			user-select: none;
+		}
+		#compile:hover {
+			background: #565e66
+		}
+		#run:hover {
+			background: #565e66
+		}
+	</style>
+</body>
