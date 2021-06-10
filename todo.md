@@ -2,6 +2,7 @@
 
 * HSV
 * RGB (including docs)
+* Color Names
 * Bitwise shifts
 * Regressions
 * Simulations
