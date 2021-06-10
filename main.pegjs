@@ -1,24 +1,24 @@
 {
 	var DesLang = {}
-    DesLang.makeVar = (e => {
-        if (!e) return "";
-        return e[0] + (e[1] ? ("_{" + e.substr(1) + "}") : "");
-    });
-    DesLang.mapFunc = (e => {
+	DesLang.makeVar = (e => {
+		if (!e) return "";
+		return e[0] + (e[1] ? ("_{" + e.substr(1) + "}") : "");
+	});
+	DesLang.mapFunc = (e => {
 		if (DesLang.specialFuncs.includes(e)) return e
 		return DesLang.funcMap[e]
 	})
-    DesLang.funcMap = {
-    	"floor": "\\operatorname{floor}",
-        "ceil": "\\operatorname{ceil}",
-        "abs": "\\operatorname{abs}",
-        "round": "\\operatorname{round}",
-        "sin": "\\sin ",
-        "cos": "\\cos ",
-        "tan": "\\tan ",
+	DesLang.funcMap = {
+		"floor": "\\operatorname{floor}",
+		"ceil": "\\operatorname{ceil}",
+		"abs": "\\operatorname{abs}",
+		"round": "\\operatorname{round}",
+		"sin": "\\sin ",
+		"cos": "\\cos ",
+		"tan": "\\tan ",
 		"csc": "\\csc ",
-        "sec": "\\sec ",
-        "cot": "\\cot ",
+		"sec": "\\sec ",
+		"cot": "\\cot ",
 		"arcsin": "\\sin^{-1}",
 		"arccos": "\\cos^{-1}",
 		"arctan": "\\tan^{-1}",
@@ -26,11 +26,11 @@
 		"arcsec": "\\sec^{-1}",
 		"arccot": "\\cot^{-1}",
 		"sinh": "\\sinh ",
-        "cosh": "\\cosh ",
-        "tanh": "\\tanh ",
+		"cosh": "\\cosh ",
+		"tanh": "\\tanh ",
 		"csch": "\\csch ",
-        "sech": "\\sech ",
-        "coth": "\\coth ",
+		"sech": "\\sech ",
+		"coth": "\\coth ",
 		"arcsinh": "\\sinh^{-1}",
 		"arccosh": "\\cosh^{-1}",
 		"arctanh": "\\tanh^{-1}",
@@ -83,54 +83,54 @@
 		"exp": "\\exp ",
 		"ln": "\\ln ",
 		"polygon": "\\operatorname{polygon}",
-    };
-    DesLang.binarySymbMap = {
-    	"+":"+",
-        "-":"-",
-        "*":"\\cdot ",
-        "=":"=",
-    };
-    DesLang.unarySymb = [
-    	"~",
-        "!",
-    ];
-    DesLang.varMap = {
-    	"pi":"\\pi ",
-        "alpha":"\\alpha ",
-        "beta":"\\beta ",
-        "gamma":"\\gamma ",
-        "Gamma":"\\Gamma ",
-        "delta":"\\delta ",
-        "Delta":"\\Delta ",
-        "epsilon":"\\epsilon ",
-        "zeta":"\\zeta ",
-        "eta":"\\eta ",
-        "Theta":"\\Theta ",
-        "iota":"\\iota ",
-        "kappa":"\\kappa ",
-        "lambda":"\\lambda ",
-        "Lambda":"\\Lambda ",
-        "mu":"\\mu ",
-        "nu":"\\nu ",
-        "Pi":"\\Pi ",
-        "rho":"\\rho ",
-        "sigma":"\\sigma ",
-        "Sigma":"\\Sigma ",
-        "tau":"\\tau ",
-        "upsilon":"\\upsilon ",
-        "Upsilon":"\\Upsilon ",
-        "phi":"\\phi ",
-        "Phi":"\\Phi ",
-        "chi":"\\chi ",
-        "psi":"\\psi ",
-        "Psi":"\\Psi ",
-        "omega":"\\omega ",
-        "Omega":"\\Omega ",
-        "inf":"\\infty ",
-        "infty":"\\infty ",
-        "theta":"\\theta ",
-        "phi":"\\phi ",
-    }
+	};
+	DesLang.binarySymbMap = {
+		"+":"+",
+		"-":"-",
+		"*":"\\cdot ",
+		"=":"=",
+	};
+	DesLang.unarySymb = [
+		"~",
+		"!",
+	];
+	DesLang.varMap = {
+		"pi":"\\pi ",
+		"alpha":"\\alpha ",
+		"beta":"\\beta ",
+		"gamma":"\\gamma ",
+		"Gamma":"\\Gamma ",
+		"delta":"\\delta ",
+		"Delta":"\\Delta ",
+		"epsilon":"\\epsilon ",
+		"zeta":"\\zeta ",
+		"eta":"\\eta ",
+		"Theta":"\\Theta ",
+		"iota":"\\iota ",
+		"kappa":"\\kappa ",
+		"lambda":"\\lambda ",
+		"Lambda":"\\Lambda ",
+		"mu":"\\mu ",
+		"nu":"\\nu ",
+		"Pi":"\\Pi ",
+		"rho":"\\rho ",
+		"sigma":"\\sigma ",
+		"Sigma":"\\Sigma ",
+		"tau":"\\tau ",
+		"upsilon":"\\upsilon ",
+		"Upsilon":"\\Upsilon ",
+		"phi":"\\phi ",
+		"Phi":"\\Phi ",
+		"chi":"\\chi ",
+		"psi":"\\psi ",
+		"Psi":"\\Psi ",
+		"omega":"\\omega ",
+		"Omega":"\\Omega ",
+		"inf":"\\infty ",
+		"infty":"\\infty ",
+		"theta":"\\theta ",
+		"phi":"\\phi ",
+	}
 	DesLang.specialFuncs = [
 		"log",
 		"sqrt",
@@ -138,90 +138,90 @@
 		"prod",
 		"nthroot",
 		"int",
-        "percof",
-        "factorial",
-        "derivative",
+		"percof",
+		"factorial",
+		"derivative",
 	];
 	DesLang.defaultFuncs = Object.keys(DesLang.funcMap).concat(DesLang.specialFuncs);
 	DesLang.isDefaultFunc = e => DesLang.defaultFuncs.includes(e);
-    DesLang.testKeyword = e => {
-    	if (DesLang.isDefaultFunc(e)) return DesLang.mapFunc(e);
-        else if (Object.keys(DesLang.varMap).includes(e)) return DesLang.varMap[e];
-        else return DesLang.makeVar(e)
-    }
-    var pl = "\\left(";
-    var pr = "\\right)";
-    var ll = "\\left[";
-    var lr = "\\right]";
-    var bl = "\\left\\{";
-    var br = "\\right\\}";
-    DesLang.idIter = 0;
-    DesLang.genId = () => { return DesLang.idIter++ };
-    DesLang.createFunction = e => {
-    	var args = e.slice(2, e.length-1);
-    	if (DesLang.specialFuncs.includes(e[0])) {
-        	if (e[0] == "log") {
-            	if (args.length <= 1) e[0] = "\\log"
-                else return "\\log_{" + args[1] + "}" + pl + args[0] + pr;
-            } else if (e[0] == "sqrt") {
-            	return "\\sqrt{" + args[0] + "}";
-            } else if (e[0] == "sum") {
-            	if (args.length == 3) return "\\sum_{" + args[0] + "}^{" + args[1] + "}" + pl + args[2] + pr
-            } else if (e[0] == "prod") {
-            	if (args.length == 3) return "\\prod_{" + args[0] + "}^{" + args[1] + "}" + pl + args[2] + pr
-            } else if (e[0] == "nthroot") {
-            	if (args.length == 2) return "\\sqrt[" + args[1] + "]{" + args[0] + "}";
-            } else if (e[0] == "int") {
-            	if (args.length == 4) return pl + "\\int_{" + args[0] + "}^{" + args[1] + "}" + pl + args[2] + pr + "d" + args[3] + pr;
-            } else if (e[0] == "percof") {
-            	if (args.length == 2) return pl + pl + args[0] + pr + "\\%\\operatorname{of}" + pl + args[1] + pr + pr;
-            } else if (e[0] == "factorial") {
-            	return pl + pl + args[0] + pr + "!" + pr
-            } else if (e[0] == "derivative") {
-            	if (args.length == 2) return "\\frac{" + "}{" + "}"
-            }
-        } else {
-        	e[0] = DesLang.testKeyword(e[0])
-        }
-        return e[0] + pl + args.join() + pr;
-    }
-    DesLang.packageFunction = e => {
-    	if (!DesLang.packagedFunctionNames.includes(e)) DesLang.packagedFunctions.push(DesLang.packages[e])
-    }
-    DesLang.packagedFunctions = [];
-    DesLang.packagedFunctionNames = [];
-    DesLang.packages = {
-    	"|" : "\\ne\\left(\\pm,\\mp\\right)=\\sum_{\\nparallel=0}^{\\log_{2}\\left(\\max\\left(\\left|\\pm\\right|,\\left|\\mp\\right|,1\\right)\\right)}\\left\\{\\operatorname{mod}\\left(\\pm,2^{\\left(\\nparallel+1\\right)}\\right)\\ge2^{\\nparallel}:2^{\\nparallel},\\operatorname{mod}\\left(\\mp,2^{\\left(\\nparallel+1\\right)}\\right)\\ge2^{\\nparallel}:2^{\\nparallel},0\\right\\}",
-    	"&" : "\\perp\\left(\\pm,\\mp\\right)=\\sum_{\\nparallel=0}^{\\log_{2}\\left(\\max\\left(\\left|\\pm\\right|,\\left|\\mp\\right|,1\\right)\\right)}\\left\\{\\left\\{\\operatorname{mod}\\left(\\pm,2^{\\left(\\nparallel+1\\right)}\\right)\\ge2^{\\nparallel}\\right\\}\\left\\{\\operatorname{mod}\\left(\\mp,2^{\\left(\\nparallel+1\\right)}\\right)\\ge2^{\\nparallel}\\right\\}=1:2^{\\nparallel},0\\right\\}",
-        "^" : "\\parallel\\left(\\pm,\\mp\\right)=\\sum_{\\nparallel=0}^{\\log_{2}\\left(\\max\\left(\\left|\\pm\\right|,\\left|\\mp\\right|,1\\right)\\right)}\\left\\{\\left\\{\\operatorname{mod}\\left(\\pm,2^{\\left(\\nparallel+1\\right)}\\right)\\ge2^{\\nparallel}:1,0\\right\\}+\\left\\{\\operatorname{mod}\\left(\\mp,2^{\\left(\\nparallel+1\\right)}\\right)\\ge2^{\\nparallel}:1,0\\right\\}=1:2^{\\nparallel},0\\right\\}",
-    }
-    DesLang.createBinary = (n1, n2, binary) => {
-    	if (Object.keys(DesLang.binarySymbMap).includes(binary)) {
-        	return n1 + DesLang.binarySymbMap[binary] + n2
-        } else {
-        	if (binary == "**") return n1 + "^{" + n2 + "}";
-            else if (binary == "/") return "\\frac{" + n1 + "}{" + n2 + "}";
-            else if (binary == "!=") return bl + "\\left|" + pl + n1 + pr + "-" + pl + n2 + pr + "\\right|>0" + br;
-            else if (binary == "&&") return bl + pl + n1 + pr + pl + n2 + pr + ">0" + br;
-            else if (binary == "==") return bl + n1 + "=" + n2 + br;
-            else if (binary == ">") return bl + n1 + ">" + n2 + br;
-            else if (binary == "<") return bl + n1 + "<" + n2 + br;
-            else if (binary == ">=") return bl + n1 + "\\ge " + n2 + br;
-            else if (binary == "<=") return bl + n1 + "\\le " + n2 + br;
-            else if (binary == "|") {
-            	DesLang.packageFunction("|");
-                return "\\ne" + pl + n1 + "," + n2 + pr;
-            } else if (binary == "&") {
-            	DesLang.packageFunction("&");
-                return "\\perp" + pl + n1 + "," + n2 + pr;
-            }
-        }
-    }
-    DesLang.createUnary = (n, op) => {
-    	if (op == "~") return pl + "-1-\\operatorname{floor}" + pl + n + pr + pr;
-        else if (op == "!") return pl + "1-\\operatorname{abs}" + pl + "\\operatorname{sgn}" + pl + n + pr + pr + pr;
-        else if (op == "@") return "..." + n;
-    }
+	DesLang.testKeyword = e => {
+		if (DesLang.isDefaultFunc(e)) return DesLang.mapFunc(e);
+		else if (Object.keys(DesLang.varMap).includes(e)) return DesLang.varMap[e];
+		else return DesLang.makeVar(e)
+	}
+	var pl = "\\left(";
+	var pr = "\\right)";
+	var ll = "\\left[";
+	var lr = "\\right]";
+	var bl = "\\left\\{";
+	var br = "\\right\\}";
+	DesLang.idIter = 0;
+	DesLang.genId = () => { return DesLang.idIter++ };
+	DesLang.createFunction = e => {
+		var args = e.slice(2, e.length-1);
+		if (DesLang.specialFuncs.includes(e[0])) {
+			if (e[0] == "log") {
+				if (args.length <= 1) e[0] = "\\log"
+				else return "\\log_{" + args[1] + "}" + pl + args[0] + pr;
+			} else if (e[0] == "sqrt") {
+				return "\\sqrt{" + args[0] + "}";
+			} else if (e[0] == "sum") {
+				if (args.length == 3) return "\\sum_{" + args[0] + "}^{" + args[1] + "}" + pl + args[2] + pr
+			} else if (e[0] == "prod") {
+				if (args.length == 3) return "\\prod_{" + args[0] + "}^{" + args[1] + "}" + pl + args[2] + pr
+			} else if (e[0] == "nthroot") {
+				if (args.length == 2) return "\\sqrt[" + args[1] + "]{" + args[0] + "}";
+			} else if (e[0] == "int") {
+				if (args.length == 4) return pl + "\\int_{" + args[0] + "}^{" + args[1] + "}" + pl + args[2] + pr + "d" + args[3] + pr;
+			} else if (e[0] == "percof") {
+				if (args.length == 2) return pl + pl + args[0] + pr + "\\%\\operatorname{of}" + pl + args[1] + pr + pr;
+			} else if (e[0] == "factorial") {
+				return pl + pl + args[0] + pr + "!" + pr
+			} else if (e[0] == "derivative") {
+				if (args.length == 2) return "\\frac{" + "}{" + "}"
+			}
+		} else {
+			e[0] = DesLang.testKeyword(e[0])
+		}
+		return e[0] + pl + args.join() + pr;
+	}
+	DesLang.packageFunction = e => {
+		if (!DesLang.packagedFunctionNames.includes(e)) DesLang.packagedFunctions.push(DesLang.packages[e])
+	}
+	DesLang.packagedFunctions = [];
+	DesLang.packagedFunctionNames = [];
+	DesLang.packages = {
+		"|" : "\\ne\\left(\\pm,\\mp\\right)=\\sum_{\\nparallel=0}^{\\log_{2}\\left(\\max\\left(\\left|\\pm\\right|,\\left|\\mp\\right|,1\\right)\\right)}\\left\\{\\operatorname{mod}\\left(\\pm,2^{\\left(\\nparallel+1\\right)}\\right)\\ge2^{\\nparallel}:2^{\\nparallel},\\operatorname{mod}\\left(\\mp,2^{\\left(\\nparallel+1\\right)}\\right)\\ge2^{\\nparallel}:2^{\\nparallel},0\\right\\}",
+		"&" : "\\perp\\left(\\pm,\\mp\\right)=\\sum_{\\nparallel=0}^{\\log_{2}\\left(\\max\\left(\\left|\\pm\\right|,\\left|\\mp\\right|,1\\right)\\right)}\\left\\{\\left\\{\\operatorname{mod}\\left(\\pm,2^{\\left(\\nparallel+1\\right)}\\right)\\ge2^{\\nparallel}\\right\\}\\left\\{\\operatorname{mod}\\left(\\mp,2^{\\left(\\nparallel+1\\right)}\\right)\\ge2^{\\nparallel}\\right\\}=1:2^{\\nparallel},0\\right\\}",
+		"^" : "\\parallel\\left(\\pm,\\mp\\right)=\\sum_{\\nparallel=0}^{\\log_{2}\\left(\\max\\left(\\left|\\pm\\right|,\\left|\\mp\\right|,1\\right)\\right)}\\left\\{\\left\\{\\operatorname{mod}\\left(\\pm,2^{\\left(\\nparallel+1\\right)}\\right)\\ge2^{\\nparallel}:1,0\\right\\}+\\left\\{\\operatorname{mod}\\left(\\mp,2^{\\left(\\nparallel+1\\right)}\\right)\\ge2^{\\nparallel}:1,0\\right\\}=1:2^{\\nparallel},0\\right\\}",
+	}
+	DesLang.createBinary = (n1, n2, binary) => {
+	if (Object.keys(DesLang.binarySymbMap).includes(binary)) {
+		return n1 + DesLang.binarySymbMap[binary] + n2
+	} else {
+		if (binary == "**") return n1 + "^{" + n2 + "}";
+		else if (binary == "/") return "\\frac{" + n1 + "}{" + n2 + "}";
+		else if (binary == "!=") return bl + "\\left|" + pl + n1 + pr + "-" + pl + n2 + pr + "\\right|>0" + br;
+		else if (binary == "&&") return bl + pl + n1 + pr + pl + n2 + pr + ">0" + br;
+		else if (binary == "==") return bl + n1 + "=" + n2 + br;
+		else if (binary == ">") return bl + n1 + ">" + n2 + br;
+		else if (binary == "<") return bl + n1 + "<" + n2 + br;
+		else if (binary == ">=") return bl + n1 + "\\ge " + n2 + br;
+		else if (binary == "<=") return bl + n1 + "\\le " + n2 + br;
+		else if (binary == "|") {
+			DesLang.packageFunction("|");
+			return "\\ne" + pl + n1 + "," + n2 + pr;
+		} else if (binary == "&") {
+			DesLang.packageFunction("&");
+			return "\\perp" + pl + n1 + "," + n2 + pr;
+		}
+	}
+}
+DesLang.createUnary = (n, op) => {
+if (op == "~") return pl + "-1-\\operatorname{floor}" + pl + n + pr + pr;
+else if (op == "!") return pl + "1-\\operatorname{abs}" + pl + "\\operatorname{sgn}" + pl + n + pr + pr + pr;
+else if (op == "@") return "..." + n;
+}
 }
 
 // Desmos
