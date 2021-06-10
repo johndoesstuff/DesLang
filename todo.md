@@ -1,6 +1,5 @@
 # Todo
 
-* Properties
 * HSV
 * RGB (including docs)
 * Bitwise shifts
@@ -17,3 +16,6 @@
 * Modulus binary op
 * Boolean and / or
 * Tables
+
+## Done
+* Properties

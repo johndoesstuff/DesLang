@@ -11,6 +11,7 @@ function compile() {
 }
 
 function run() {
+	compile();
 	var state = Calc.getState();
 	var o = "";
 	try {

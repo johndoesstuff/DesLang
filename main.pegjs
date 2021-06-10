@@ -235,7 +235,15 @@ Program "Program"
 	}
 
 Line "Line"
-	= e:Statement _ ";" { return e }
+	= statement:Statement _ props:("?" _ Property _)* ";" {
+		var s = statement;
+		props.forEach((e) => {
+			s.forEach((k) => {
+				k[e[2].prop] = e[2].val;
+			})
+		})
+		return s
+	}
 
 Statement "Statement"
 	= Folder
@@ -247,7 +255,13 @@ Statement "Statement"
 	}]}
 
 FolderLine "FolderLine"
-	= e:FolderStatement _ ";" { return e }
+	= statement:FolderStatement _ props:("?" _ Property _)* ";" {
+		var s = statement;
+		props.forEach((e) => {
+			s[e[2].prop] = e[2].val;
+		})
+		return s
+	}
 
 FolderStatement "FolderStatement"
 	= e:Expr0 { return {
@@ -256,6 +270,9 @@ FolderStatement "FolderStatement"
 		latex: e,
 		type: "expression",
 	}}
+	
+Property "Property"
+	= prop:Variable _ "=" _ val:(Variable / Number / Text) { return {prop, val} }
 
 List "List"
 	= "[" e:(_ Expr0 _ ("," _ Expr0 _)*) "]" {
