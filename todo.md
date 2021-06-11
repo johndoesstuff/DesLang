@@ -1,7 +1,5 @@
 # Todo
 
-* HSV
-* RGB (including docs)
 * Color Names
 * Bitwise shifts
 * Regressions
@@ -20,3 +18,5 @@
 
 ## Done
 * Properties
+* HSV
+* RGB (including docs)

@@ -288,6 +288,7 @@ These functions behave exactly like the would normally in Desmos.
  * `polygon`
  * `factorial`
  * `hsv`
+ * `rgb`
 #### Special Functions
 These functions are native to DesLang but could require elaboration
  * `log(number, base)`
