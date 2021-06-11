@@ -2,10 +2,8 @@
 
 * Color Names
 * Bitwise shifts
-* Regressions
 * Simulations
 * Notes
-* Comments
 * Images
 * Settings
 * Piecewise
@@ -20,3 +18,5 @@
 * Properties
 * HSV
 * RGB (including docs)
+* Regressions
+* Comments

@@ -407,4 +407,8 @@ Variable "Variable"
 Text "Text"
     = e:[A-Za-z0-9 ]+ { return e.join("") }
 
-_  = [ \t\r\n]* {return ""}
+_  = (Comment / [ \t\r\n])* {return ""}
+
+Comment "Comment"
+    = "//" [^\n]* {return ""}
+    / "/*" (!"*/" .)* "*/"
