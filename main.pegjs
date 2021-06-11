@@ -91,6 +91,7 @@
         "-":"-",
         "*":"\\cdot ",
         "=":"=",
+        "~=":"\\sim ",
     };
     DesLang.unarySymb = [
         "~",
@@ -314,7 +315,7 @@ Folder "Folder"
     }, ...contents.map(e => e[0])]}
 
 Expr0
-    = head:Expr1 tail:(_ ("=" / "=>") _ Expr1)* {
+    = head:Expr1 tail:(_ ("=" / "=>" / "~=") _ Expr1)* {
         var setup = [head, ...tail.map(e => e.filter(k => k != ""))];
         return setup.reduce((start, term) => {
             return DesLang.createBinary(start, term[1], term[0]) 
