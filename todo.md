@@ -1,5 +1,6 @@
 # Todo
 
+* Styles
 * Color Names
 * Bitwise shifts
 * Simulations
