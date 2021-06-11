@@ -233,7 +233,12 @@ Program "Program"
             return e[1];
         }).reduce((start, term) => {
             return start.concat(term);
-        })
+        }).concat(DesLang.packagedFunctions.map(e => { return {
+            color: "#c74440",
+            id: DesLang.genId(),
+            latex: e,
+            type: "expression",
+        }}))
     }
 
 Line "Line"
